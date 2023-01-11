@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title%} Index {% endblock %}
+
+{% block body %}
+{% if users %}
+<table class="iksweb">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>UserName</th>
+        <th>UserPassword</th>
+        <th>PaymentPlan</th>
+        <th>CardDetails</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.user_name}}</td>
+        <td>{{user.user_password}}</td>
+        <td>{{user.user_payment_plan}}</td>
+        <td>{{user.user_card_details}}</td>
+        <td><a href="/tropx/userprofile/{{user.id}}">Show</a></td>
+        <td><a href="/tropx/userprofile/update/{{user.id}}">Update</a></td>
+        <td><a href="/tropx/userprofile/delete/{{user.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>UserProfile list is empty!</p>
+{% endif %}
+
+
+{% endblock %}

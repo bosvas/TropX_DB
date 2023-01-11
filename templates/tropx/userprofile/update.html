@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title%} Update {% endblock %}
+
+{% block body%}
+<form method="post">
+    <p>
+        <label for="user_name">Enter new user name</label>
+        <input type="text" name="user_name" placeholder="user_name">
+    </p>
+    <p>
+        <label for="user_password">Enter new password</label>
+        <input type="text" name="user_password" placeholder="user_password">
+    </p>
+    <p>
+        <label for="payment_plan">Choose new payment plan</label>
+        <input type="text" name="payment_plan" placeholder="payment_plan">
+    </p>
+        <p>
+        <label for="card_details">Enter new card details</label>
+        <input type="text" name="card_details" placeholder="card_details">
+    </p>
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+</form>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title%}UserProfile{% endblock %}
+
+{% block body %}
+<h1>User profile id: {{user.user_profile_id}}</h1>
+<h2>User name: {{user.user_name}}</h2>
+<h3>User password: {{user.user_password}}</h3>
+<h3>User payment plan: {{user.payment_plan}}</h3>
+<h3>User card details: {{user.card_details}}</h3>
+
+
+{% endblock %}
