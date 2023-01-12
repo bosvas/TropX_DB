@@ -1,9 +1,13 @@
+import datetime
+
 from flask import Flask, render_template, redirect, request
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
+from util.weight_plot import weight_histogram_chart
+
 
 load_dotenv()
 
@@ -24,7 +28,18 @@ class User(Base):
     height = Column(Float)
     weight = Column(Float)
     sport = Column(String)
+    weights = relationship("Weight", back_populates="user")
     # userProfileId: user_profile = field()
+
+
+class Weight(Base):
+    __tablename__='weight'
+    weight_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    weight = Column(Integer)
+    weight_date = Column(DateTime)
+    user = relationship("User", back_populates="weights")
+
 
 # Create the tables in the database
 Base.metadata.create_all(bind=engine)
@@ -34,10 +49,9 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-
 def get_all():
     users = session.query(User).all()
-    return render_template('tropx/user/index.html', users=users)
+    return users
 
 
 def registration_post():
@@ -51,6 +65,8 @@ def registration_post():
     sport = request.form['sport']
     # userProfileId: user_profile = field()
     new_user = User(name=name, phone=phone, email=email, gender=gender, birthdate=birthdate, height=height, weight=weight, sport=sport)
+    new_weight = Weight(user_id=new_user.id, weight=weight, weight_date=datetime.datetime.now())
+    session.add(new_weight)
 
     session.add(new_user)
     session.commit()
@@ -60,8 +76,9 @@ def registration_post():
 
 def get_user(id):
     user = session.query(User).filter_by(id=id).first()
+    weights = session.query(Weight).filter_by(user_id=id)
 
-    return render_template("tropx/user/show.html", user=user)
+    return (user, weights)
 
 
 def update_user_post(id):
@@ -84,10 +101,24 @@ def update_user_post(id):
     user_to_update.weight = weight
     user_to_update.sport = sport
 
+    new_weight = Weight(user_id=user_to_update.id, weight=weight, weight_date=datetime.datetime.now())
+    session.add(new_weight)
+
     session.commit()
 
     return redirect("/tropx/user/show")
 
+
+def update_user_weight_post(id):
+    weight = request.form['weight']
+    user_to_update = session.query(User).filter_by(id=id).first()
+    user_to_update.weight = weight
+    new_weight = Weight(user_id=user_to_update.id, weight=weight, weight_date=datetime.datetime.now())
+    session.add(new_weight)
+
+    session.commit()
+
+    return redirect(f"/tropx/user/{user_to_update.id}")
 
 def delete_user(id):
     user_to_delete = session.query(User).filter_by(id=id).first()
@@ -95,3 +126,5 @@ def delete_user(id):
     session.commit()
 
     return redirect("/tropx/user/show")
+
+

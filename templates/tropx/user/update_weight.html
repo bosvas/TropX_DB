@@ -1,0 +1,17 @@
+{% extends 'userbase.html' %}
+
+{% block title%} Update {% endblock %}
+
+{% block body%}
+<form method="post">
+    <p>
+        <label for="weight">Enter your weight</label>
+        <input type="text" name="weight" placeholder="weight">
+    </p>
+
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+</form>
+
+{% endblock %}
