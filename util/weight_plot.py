@@ -26,5 +26,10 @@ def weight_histogram_chart(weights, username):
     plot_url = base64.b64encode(img.getvalue()).decode()
 
     plt.cla()
-
+    print(plot_url)
     return plot_url
+
+
+# if __name__ == '__main__':
+#     weights = ((),(),)
+#     print(weight_histogram_chart())

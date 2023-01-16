@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title%} Index {% endblock %}
+
+{% block body %}
+{% if exercises %}
+<table class="iksweb">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for exercise in exercises %}
+    <tr>
+        <td>{{exercise.exercise_id}}</td>
+        <td>{{exercise.name}}</td>
+        <td>{{exercise.description}}</td>
+        <td><a href="/tropx/exercise/{{exercise.exercise_id}}">Show</a></td>
+        <td><a href="/tropx/exercise/update/{{exercise.exercise_id}}">Update</a></td>
+        <td><a href="/tropx/exercise/delete/{{exercise.exercise_id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Exercise Specification list is empty!</p>
+{% endif %}
+
+
+{% endblock %}

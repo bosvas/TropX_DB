@@ -1,21 +1,19 @@
 import datetime
-
 from flask import Flask, render_template, redirect, request
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
-from util.weight_plot import weight_histogram_chart
+from classes.UserProfile.user_profile_db_implementation import Base
 
 
 load_dotenv()
 
 db_url = os.getenv("DATABASE_URL")
-print(db_url)
 engine = create_engine(db_url)
 
-Base = declarative_base()
+# Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
@@ -111,9 +109,10 @@ def update_user_post(id):
 
 def update_user_weight_post(id):
     weight = request.form['weight']
+    weight_date = request.form['weight_date']
     user_to_update = session.query(User).filter_by(id=id).first()
     user_to_update.weight = weight
-    new_weight = Weight(user_id=user_to_update.id, weight=weight, weight_date=datetime.datetime.now())
+    new_weight = Weight(user_id=user_to_update.id, weight=weight, weight_date=weight_date)
     session.add(new_weight)
 
     session.commit()

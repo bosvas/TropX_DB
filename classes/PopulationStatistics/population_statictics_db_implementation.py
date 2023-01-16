@@ -9,8 +9,11 @@ def get_population_statistic():
         average_height += user.height
         average_weight += user.weight
 
-    average_weight /= len(users)
-    average_height /= len(users)
+    if average_weight != 0:
+        average_weight /= len(users)
+    if average_height != 0:
+        average_height /= len(users)
+
     stat_touple = (average_height, average_weight)
 
     return stat_touple

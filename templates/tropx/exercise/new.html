@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title%} New {% endblock %}
+
+{% block body%}
+<form method="post">
+    <p>
+        <label for="name">Enter exercise name</label>
+        <input type="text" name="name" placeholder="name">
+    </p>
+    <p>
+        <label for="description">Enter exercise's description</label>
+        <input type="text" name="description" placeholder="description">
+    </p>
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+</form>
+
+{% endblock %}

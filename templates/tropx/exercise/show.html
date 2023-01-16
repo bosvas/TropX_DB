@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title%}person{% endblock %}
+
+{% block body %}
+
+
+<h1>Exercise id: {{exercise.exercise_id}}</h1>
+<h2>Exercise name: {{exercise.name}}</h2>
+<h3>Exercise description: {{exercise.description}}</h3>
+<img src="data:image/png;base64,{{ plot_url }}">
+
+
+{% endblock %}
