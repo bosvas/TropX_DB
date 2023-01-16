@@ -6,8 +6,9 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, 
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from util.weight_plot import weight_histogram_chart
-from classes.UserProfile.user_profile_db_implementation import Base
+# from classes.UserProfile.user_profile_db_implementation import Base
 from classes.ExerciseExecution.exercise_execution_db_implementation import ExerciseExecution
+from classes.classes import ExerciseSpecification
 
 load_dotenv()
 
@@ -15,21 +16,20 @@ db_url = os.getenv("DATABASE_URL")
 engine = create_engine(db_url)
 
 
-class ExerciseSpecification(Base):
-    __tablename__ = 'exercise_specifications'
-    exercise_id = Column(Integer, primary_key=True)
-    name = Column(String)
-    description = Column(String)
-    exercise_executions = relationship("ExerciseExecution", back_populates="exercise")
-
-
-# Create the tables in the database
-Base.metadata.create_all(bind=engine)
+# class ExerciseSpecification(Base):
+#     __tablename__ = 'exercise_specifications'
+#     exercise_id = Column(Integer, primary_key=True)
+#     name = Column(String)
+#     description = Column(String)
+#     exercise_executions = relationship("ExerciseExecution", back_populates="exercise")
+#
+#
+# # Create the tables in the database
+# Base.metadata.create_all(bind=engine)
 
 # Create a session to interact with the database
 Session = sessionmaker(bind=engine)
 session = Session()
-
 
 
 def get_all():

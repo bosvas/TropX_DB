@@ -1,8 +1,11 @@
-from classes.User.user_db_implementation import get_all
-
+from classes.User import user_db_implementation
+from classes.ExerciseSpecification import exercise_specification_db_implementation
 
 def get_population_statistic():
-    users = get_all()
+    exercises = exercise_specification_db_implementation.get_all()
+    total_exercises = len(exercises)
+
+    users = user_db_implementation.get_all()
     average_height = 0
     average_weight = 0
     for user in users:
@@ -14,6 +17,6 @@ def get_population_statistic():
     if average_height != 0:
         average_height /= len(users)
 
-    stat_touple = (average_height, average_weight)
+    stat_touple = (average_height, average_weight, total_exercises)
 
     return stat_touple

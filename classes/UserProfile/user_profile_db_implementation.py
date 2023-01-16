@@ -2,28 +2,28 @@ from flask import Flask, render_template, redirect, request
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
+from classes.classes import UserProfile
 
 load_dotenv()
 
 db_url = os.getenv("DATABASE_URL")
-print(db_url)
 engine = create_engine(db_url)
 
-Base = declarative_base()
-
-class UserProfile(Base):
-    __tablename__ = 'user_profiles'
-    id = Column(Integer, primary_key=True)
-    user_name = Column(String)
-    user_password = Column(String)
-    user_payment_plan = Column(String)
-    user_card_details = Column(String)
-    # userProfileId: user_profile = field()
-
-# Create the tables in the database
-Base.metadata.create_all(bind=engine)
+# Base = declarative_base()
+#
+# class UserProfile(Base):
+#     __tablename__ = 'user_profiles'
+#     id = Column(Integer, primary_key=True)
+#     user_name = Column(String)
+#     user_password = Column(String)
+#     user_payment_plan = Column(String)
+#     user_card_details = Column(String)
+#     # userProfileId: user_profile = field()
+#
+# # Create the tables in the database
+# Base.metadata.create_all(bind=engine)
 
 # Create a session to interact with the database
 Session = sessionmaker(bind=engine)

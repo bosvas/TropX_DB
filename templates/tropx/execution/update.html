@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title%} Update execution {% endblock %}
+
+{% block body%}
+<form method="post">
+    <p>
+        <label for="execution_date">Enter exercise execution date</label>
+        <input type="date" name="execution_date" placeholder="execution_date">
+    </p>
+    <p>
+        <label for="number_count">Enter exercise's number count</label>
+        <input type="text" name="number_count" placeholder="number_count">
+    </p>
+        <p>
+        <label for="weight_with">Enter exercise weight with</label>
+        <input type="text" name="weight_with" placeholder="weight_with">
+    </p>
+    <p>
+        <label for="is_correct">Enter, is exercise correct?</label>
+        <input type="text" name="is_correct" placeholder="is_correct">
+    </p>
+    <p>
+        <label for="exercise_id">Enter exercise's id</label>
+        <input type="text" name="exercise_id" placeholder="exercise_id">
+    </p>
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+</form>
+
+{% endblock %}

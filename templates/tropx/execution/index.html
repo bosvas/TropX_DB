@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title%} Index {% endblock %}
+
+{% block body %}
+{% if exercise_executions %}
+<table class="iksweb">
+    <thead>
+    <tr>
+        <th>Execution Id</th>
+        <th>User name</th>
+        <th>Exercise name</th>
+        <th>Execution Date</th>
+        <th>Number count</th>
+        <th>Weight with</th>
+        <th>Correctness rate</th>
+        <th>Is Correct</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for execution in exercise_executions %}
+    <tr>
+        <td>{{execution.execution_id}}</td>
+<!--        <td>{{execution.execution_date}}</td>-->
+<!--        <td>{{execution.execution_id}}</td>-->
+        <td>{{execution.execution_date}}</td>
+        <td>{{execution.number_count}}</td>
+        <td>{{execution.weight_with}}</td>
+        <td>{{execution.correct_rate}}</td>
+        <td>{{execution.is_correct}}</td>
+        <td><a href="/tropx/execution/{{execution.execution_id}}">Show</a></td>
+        <td><a href="/tropx/execution/update/{{execution.execution_id}}">Update</a></td>
+        <td><a href="/tropx/execution/delete/{{execution.execution_id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Exercise Execution list is empty!</p>
+{% endif %}
+
+
+{% endblock %}
