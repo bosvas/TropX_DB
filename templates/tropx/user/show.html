@@ -16,7 +16,49 @@
 <h3>User height: {{user.height}}</h3>
 <h3>User weight: {{user.weight}}</h3>
 <h3>User sport: {{user.sport}}</h3>
-<img src="data:image/png;base64,{{ plot_url }}">
+<img src="data:image/png;base64,{{ plot_img }}">
+
+
+{% if user.exercise_executions %}
+<table class="iksweb">
+    <thead>
+    <tr>
+        <th>Execution Id</th>
+        <th>User name</th>
+        <th>Exercise name</th>
+        <th>Execution Date</th>
+        <th>Number of repetitions</th>
+        <th>Number of sets</th>
+        <th>Second long</th>
+        <th>Weight with</th>
+        <th>Correctness rate</th>
+        <th>Is Correct</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for execution in user.exercise_executions %}
+    <tr>
+        <td>{{execution.execution_id}}</td>
+        <td>{{execution.user.name}}</td>
+        <td>{{execution.exercise.name}}</td>
+        <td>{{execution.execution_date}}</td>
+        <td>{{execution.number_of_repetitions}}</td>
+        <td>{{execution.number_of_sets}}</td>
+        <td>{{execution.seconds_long}}</td>
+        <td>{{execution.weight_with}}</td>
+        <td>{{execution.correct_rate}}</td>
+        <td>{{execution.is_correct}}</td>
+        <td><a href="/tropx/execution/{{execution.execution_id}}">Show</a></td>
+        <td><a href="/tropx/execution/update/{{execution.execution_id}}">Update</a></td>
+        <td><a href="/tropx/execution/delete/{{execution.execution_id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Exercise Execution list is empty!</p>
+{% endif %}
+
 
 
 {% endblock %}

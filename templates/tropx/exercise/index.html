@@ -10,6 +10,8 @@
         <th>Id</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Goal</th>
+        <th>Common Mistakes</th>
     </tr>
     </thead>
     <tbody>
@@ -18,6 +20,8 @@
         <td>{{exercise.exercise_id}}</td>
         <td>{{exercise.name}}</td>
         <td>{{exercise.description}}</td>
+        <td>{{exercise.goal}}</td>
+        <td>{{exercise.common_mistakes}}</td>
         <td><a href="/tropx/exercise/{{exercise.exercise_id}}">Show</a></td>
         <td><a href="/tropx/exercise/update/{{exercise.exercise_id}}">Update</a></td>
         <td><a href="/tropx/exercise/delete/{{exercise.exercise_id}}">Delete</a></td>

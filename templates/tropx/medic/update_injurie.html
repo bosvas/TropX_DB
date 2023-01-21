@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title%} Update {% endblock %}
+
+{% block body%}
+<form method="post">
+    <p>
+        <label for="injurie_date">Enter injurie date</label>
+        <input type="date" name="injurie_date" placeholder="injurie_date">
+    </p>
+    <p>
+        <label for="injurie_bodypart">Enter your injurie bodypart</label>
+        <input type="text" name="injurie_bodypart" placeholder="injurie_bodypart">
+    </p>
+    <p>
+        <label for="days_to_recover">Enter how many days to recover</label>
+        <input type="text" name="days_to_recover" placeholder="days_to_recover">
+    </p>
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+</form>
+
+{% endblock %}

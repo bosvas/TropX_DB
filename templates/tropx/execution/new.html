@@ -5,12 +5,24 @@
 {% block body%}
 <form method="post">
     <p>
+        <label for="user_id">Enter where is mistake</label>
+        <input type="number" name="user_id" placeholder="user_id">
+    </p>
+    <p>
         <label for="execution_date">Enter exercise execution date</label>
         <input type="date" name="execution_date" placeholder="execution_date">
     </p>
     <p>
-        <label for="number_count">Enter exercise's number count</label>
-        <input type="text" name="number_count" placeholder="number_count">
+        <label for="number_of_repetitions">Enter exercise's number of repetitions</label>
+        <input type="text" name="number_of_repetitions" placeholder="number_of_repetitions">
+    </p>
+    <p>
+        <label for="number_of_sets">Enter exercise's number of sets</label>
+        <input type="text" name="number_of_sets" placeholder="number_of_sets">
+    </p>
+    <p>
+        <label for="seconds_long">Enter exercise's long in seconds</label>
+        <input type="text" name="seconds_long" placeholder="seconds_long">
     </p>
     <p>
         <label for="weight_with">Enter exercise weight with</label>
@@ -29,8 +41,8 @@
         <input type="text" name="exercise_id" placeholder="exercise_id">
     </p>
     <p>
-        <label for="user_id">Enter user's id</label>
-        <input type="text" name="user_id" placeholder="user_id">
+        <label for="where_is_mistake">Enter where is mistake</label>
+        <input type="text" name="where_is_mistake" placeholder="where_is_mistake">
     </p>
     <p>
         <button class="custom-btn btn-2" type="submit">Submit</button>

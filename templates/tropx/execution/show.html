@@ -6,13 +6,17 @@
 
 
 <h1>Execution id: {{execution.execution_id}}</h1>
-<h1>User: {{user.name}}</h1>
-<h1>Exersice: {{exercise.name}}</h1>
+<h1>User: {{execution.user.name}}</h1>
+<a href="/tropx/user/{{execution.user.id}}">{{execution.user.name}}</a>
+<h1>Exersice: {{execution.exercise.name}}</h1>
 <h2>Execution date: {{execution.execution_date}}</h2>
-<h2>Execution number count: {{execution.number_count}}</h2>
+<h2>Execution number of repetitions: {{execution.number_of_repetitions}}</h2>
+<h2>Execution number of sets: {{execution.number_of_sets}}</h2>
+<h2>Execution long in seconds: {{execution.seconds_long}}</h2>
 <h2>Execution weight with: {{execution.weight_with}}</h2>
 <h2>Execution correctness rate: {{execution.correct_rate}}</h2>
 <h2>Execution is correct?: {{execution.is_correct}}</h2>
+<h2>Were was a mistake: {{execution.where_is_mistake}}</h2>
 <img src="data:image/png;base64,{{ plot_url }}">
 
 

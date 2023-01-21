@@ -16,17 +16,6 @@ db_url = os.getenv("DATABASE_URL")
 engine = create_engine(db_url)
 
 
-# class ExerciseSpecification(Base):
-#     __tablename__ = 'exercise_specifications'
-#     exercise_id = Column(Integer, primary_key=True)
-#     name = Column(String)
-#     description = Column(String)
-#     exercise_executions = relationship("ExerciseExecution", back_populates="exercise")
-#
-#
-# # Create the tables in the database
-# Base.metadata.create_all(bind=engine)
-
 # Create a session to interact with the database
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -40,8 +29,10 @@ def get_all():
 def new_exercise():
     name = request.form['name']
     description = request.form['description']
+    goal = request.form['goal']
+    common_mistakes = request.form['common_mistakes']
 
-    new_exercise = ExerciseSpecification(name=name, description=description)
+    new_exercise = ExerciseSpecification(name=name, description=description, goal=goal, common_mistakes=common_mistakes)
 
     session.add(new_exercise)
     session.commit()
@@ -56,11 +47,17 @@ def get_exercise(id):
     return exercise
 
 
-def update_user_post(id):
+def update_exercise_post(id):
     name = request.form['name']
     description = request.form['description']
+    goal = request.form['goal']
+    common_mistakes = request.form['common_mistakes']
 
     exercise_to_update = session.query(ExerciseSpecification).filter_by(exercise_id=id).first()
+    exercise_to_update.name = name
+    exercise_to_update.description = description
+    exercise_to_update.goal = goal
+    exercise_to_update.common_mistakes = common_mistakes
 
     session.commit()
 

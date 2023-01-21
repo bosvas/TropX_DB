@@ -14,36 +14,7 @@ load_dotenv()
 db_url = os.getenv("DATABASE_URL")
 engine = create_engine(db_url)
 
-# Base = declarative_base()
-#
-# class User(Base):
-#     __tablename__ = 'users'
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String)
-#     phone = Column(String)
-#     email = Column(String)
-#     gender = Column(String)
-#     birthdate = Column(DateTime)
-#     height = Column(Float)
-#     weight = Column(Float)
-#     sport = Column(String)
-#     weights = relationship("Weight", back_populates="user")
-#     exercise_executions = relationship("ExerciseExecution", back_populates="user")
-#
-#
-# class Weight(Base):
-#     __tablename__='weight'
-#     weight_id = Column(Integer, primary_key=True)
-#     user_id = Column(Integer, ForeignKey('users.id'))
-#     weight = Column(Integer)
-#     weight_date = Column(DateTime)
-#     user = relationship("User", back_populates="weights")
-#
-#
-# # Create the tables in the database
-# Base.metadata.create_all(bind=engine)
 
-# Create a session to interact with the database
 Session = sessionmaker(bind=engine)
 session = Session()
 

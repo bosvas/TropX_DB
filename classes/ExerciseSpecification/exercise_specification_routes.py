@@ -26,11 +26,11 @@ def get_exercise(id):
 @exercise_specification_bp.route('/tropx/exercise/update/<id>', methods=['POST', 'GET'])
 def update_exercise(id):
     if request.method == 'POST':
-        return exercise_specification_db_implementation.update_user_post(id)
+        return exercise_specification_db_implementation.update_exercise_post(id)
     return render_template('tropx/exercise/update.html')
 
 
 @exercise_specification_bp.route('/tropx/exercise/delete/<id>', methods=['POST', 'GET'])
 def delete_exercise(id):
-    exercise_specification_db_implementation.delete_user(id)
+    exercise_specification_db_implementation.delete_exercise(id)
     return redirect("/tropx/exercise/show")

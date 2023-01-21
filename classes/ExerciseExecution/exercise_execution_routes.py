@@ -19,8 +19,8 @@ def new_exercise():
 
 @exercise_execution_bp.route('/tropx/execution/<id>', methods=['GET', 'POST'])
 def get_exercise(id):
-    execution, user, exercise = exercise_execution_db_implementation.get_exercise_execution(id)
-    return render_template("tropx/execution/show.html", execution=execution, user=user, exercise=exercise)
+    execution = exercise_execution_db_implementation.get_exercise_execution(id)
+    return render_template("tropx/execution/show.html", execution=execution)
 
 
 @exercise_execution_bp.route('/tropx/execution/update/<id>', methods=['POST', 'GET'])

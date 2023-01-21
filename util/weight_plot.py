@@ -8,7 +8,8 @@ import base64
 def weight_histogram_chart(weights, username):
     x = []
     y = []
-    for weight in weights:
+    weights_sorted = sorted(weights, key=lambda weight: weight.weight_date)
+    for weight in weights_sorted:
         x.append(weight.weight_date)
         y.append(weight.weight)
 
@@ -23,11 +24,10 @@ def weight_histogram_chart(weights, username):
     plt.savefig(img, format='png', bbox_inches='tight')
     img.seek(0)
 
-    plot_url = base64.b64encode(img.getvalue()).decode()
+    plot_img = base64.b64encode(img.getvalue()).decode()
 
     plt.cla()
-    print(plot_url)
-    return plot_url
+    return plot_img
 
 
 # if __name__ == '__main__':

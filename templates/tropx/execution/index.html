@@ -11,23 +11,29 @@
         <th>User name</th>
         <th>Exercise name</th>
         <th>Execution Date</th>
-        <th>Number count</th>
+        <th>Number of repetitions</th>
+        <th>Number of sets</th>
+        <th>Second long</th>
         <th>Weight with</th>
         <th>Correctness rate</th>
         <th>Is Correct</th>
+        <th>Where is mistake</th>
     </tr>
     </thead>
     <tbody>
     {% for execution in exercise_executions %}
     <tr>
         <td>{{execution.execution_id}}</td>
-<!--        <td>{{execution.execution_date}}</td>-->
-<!--        <td>{{execution.execution_id}}</td>-->
+        <td>{{execution.user.name}}</td>
+        <td>{{execution.exercise.name}}</td>
         <td>{{execution.execution_date}}</td>
-        <td>{{execution.number_count}}</td>
+        <td>{{execution.number_of_repetitions}}</td>
+        <td>{{execution.number_of_sets}}</td>
+        <td>{{execution.seconds_long}}</td>
         <td>{{execution.weight_with}}</td>
         <td>{{execution.correct_rate}}</td>
         <td>{{execution.is_correct}}</td>
+        <td>{{execution.where_is_mistake}}</td>
         <td><a href="/tropx/execution/{{execution.execution_id}}">Show</a></td>
         <td><a href="/tropx/execution/update/{{execution.execution_id}}">Update</a></td>
         <td><a href="/tropx/execution/delete/{{execution.execution_id}}">Delete</a></td>
