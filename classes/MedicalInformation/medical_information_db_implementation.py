@@ -41,11 +41,10 @@ def add_user_medical_information(id):
          personal_calibration=personal_calibration)
     session.add(new_medical_information)
 
-    if injurie_bodypart & injurie_date & days_to_recover:
-        new_injurie = Injurie(medical_information_id=new_medical_information.id,
-                              injurie_date=injurie_date, injurie_bodypart=injurie_bodypart,
-                              days_to_recover=days_to_recover)
-        session.add(new_injurie)
+    new_injurie = Injurie(medical_information_id=new_medical_information.id,
+                          injurie_date=injurie_date, injurie_bodypart=injurie_bodypart,
+                          days_to_recover=days_to_recover)
+    session.add(new_injurie)
 
     session.commit()
 
@@ -66,25 +65,16 @@ def update_medical_information_post(id):
     user_to_update = session.query(User).filter_by(id=id).first()
     medical_information_to_update = session.query(MedicalInformation).filter_by(user_id=user_to_update.id).first()
 
-    if medical_information_to_update == None:
-        medical_information_to_update = MedicalInformation()
+    medical_information_to_update.chronic_illness = chronic_illness
+    medical_information_to_update.orthopedic_status = orthopedic_status
+    medical_information_to_update.current_medication = current_medication
+    medical_information_to_update.balance_sway_standing = balance_sway_standing
+    medical_information_to_update.personal_calibration = personal_calibration
 
-    if chronic_illness:
-        medical_information_to_update.chronic_illness = chronic_illness
-    if orthopedic_status:
-        medical_information_to_update.orthopedic_status = orthopedic_status
-    if current_medication:
-        medical_information_to_update.current_medication = current_medication
-    if balance_sway_standing:
-        medical_information_to_update.balance_sway_standing = balance_sway_standing
-    if personal_calibration:
-        medical_information_to_update.personal_calibration = personal_calibration
-
-    if injurie_bodypart & injurie_date & days_to_recover:
-        new_injurie = Injurie(medical_information_id=medical_information_to_update.id,
+    new_injurie = Injurie(medical_information_id=medical_information_to_update.id,
                               injurie_date=injurie_date, injurie_bodypart=injurie_bodypart,
                               days_to_recover=days_to_recover)
-        session.add(new_injurie)
+    session.add(new_injurie)
 
     session.commit()
 

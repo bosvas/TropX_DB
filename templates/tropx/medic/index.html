@@ -8,6 +8,7 @@
     <thead>
     <tr>
         <th>Id</th>
+        <th>USER ID</th>
         <th>Chronic Illness</th>
         <th>Orthopedic Status</th>
         <th>Current Medication</th>
@@ -19,14 +20,13 @@
     {% for mi in medical_informations %}
     <tr>
         <td>{{mi.id}}</td>
+        <td>{{mi.user_id}}</td>
         <td>{{mi.chronic_illness}}</td>
         <td>{{mi.orthopedic_status}}</td>
         <td>{{mi.current_medication}}</td>
         <td>{{mi.balance_sway_standing}}</td>
         <td>{{mi.personal_calibration}}</td>
-<!--        <td><a href="/tropx/user/{{user.id}}">Show</a></td>-->
-<!--        <td><a href="/tropx/user/update/{{user.id}}">Update</a></td>-->
-<!--        <td><a href="/tropx/user/delete/{{user.id}}">Delete</a></td>-->
+
     </tr>
     {% endfor %}
     </tbody>

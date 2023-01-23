@@ -71,12 +71,12 @@ class Injurie(Base):
     injurie_date = Column(DateTime)
     injurie_bodypart = Column(String)
     days_to_recover = Column(Integer)
+    medical_information = relationship("MedicalInformation", back_populates="injuries")
+
     # recover_date = injurie_date + timedelta(days=days_to_recover)
     # is_injured = False
     # if recover_date < datetime.now():
     #     is_injured = True
-
-    medical_information = relationship("MedicalInformation", back_populates="injuries")
 
 
 class ExerciseSpecification(Base):

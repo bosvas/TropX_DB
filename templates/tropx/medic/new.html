@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title%} Update/Add {% endblock %}
+
+{% block body%}
+<form method="post">
+    <p>
+        <label for="chronic_illness">Enter your chronic illnesses</label>
+        <input type="text" name="chronic_illness" placeholder="chronic_illness">
+    </p>
+    <p>
+        <label for="orthopedic_status">Enter your orthopedic status</label>
+        <input type="text" name="orthopedic_status" placeholder="orthopedic_status">
+    </p>
+    <p>
+        <label for="current_medication">Enter current medication</label>
+        <input type="text" name="current_medication" placeholder="current_medication">
+    </p>
+        <p>
+        <label for="balance_sway_standing">Enter your balance sway standing</label>
+        <input type="text" name="balance_sway_standing" placeholder="balance_sway_standing">
+    </p>
+        <p>
+        <label for="personal_calibration">Enter your personal calibration</label>
+        <input type="text" name="personal_calibration" placeholder="personal_calibration">
+    </p>
+
+    <h1>You can add your injurie infromation (or not)</h1>
+
+    <p>
+        <label for="injurie_date">Enter injurie date</label>
+        <input type="date" name="injurie_date" placeholder="injurie_date">
+    </p>
+    <p>
+        <label for="injurie_bodypart">Enter your injurie bodypart</label>
+        <input type="text" name="injurie_bodypart" placeholder="injurie_bodypart">
+    </p>
+    <p>
+        <label for="days_to_recover">Enter how many days to recover</label>
+        <input type="text" name="days_to_recover" placeholder="days_to_recover">
+    </p>
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+</form>
+
+{% endblock %}

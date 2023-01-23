@@ -16,11 +16,23 @@
 <h3>User height: {{user.height}}</h3>
 <h3>User weight: {{user.weight}}</h3>
 <h3>User sport: {{user.sport}}</h3>
+<h3>User weight chart : </h3>
 <img src="data:image/png;base64,{{ plot_img }}">
-
-
+<br>
+<h3>User's medical information chart : </h3>
+<a href="/tropx/user/medic/new/{{user.id}}">Add medical information</a>
+<a href="/tropx/user/update/injurie/{{user.id}}">Add injurie information</a>
+<h3>User chronic illness: {{mi.chronic_illness}}</h3>
+<h3>User birthdate: {{mi.orthopedic_status}}</h3>
+<h3>User height: {{mi.current_medication}}</h3>
+<h3>User weight: {{mi.balance_sway_standing}}</h3>
+<h3>User sport: {{mi.personal_calibration}}</h3>
+{% for injurie in mi.injuries %}
+<h3>Injurie was : {{injurie.injurie_date}}, in {{injurie.injurie_bodypart}}. Days to recover : {{injurie.days_to_recover}}</h3>
+{% endfor %}
 {% if user.exercise_executions %}
 <table class="iksweb">
+<!--    {{user.exercise_executions}}-->
     <thead>
     <tr>
         <th>Execution Id</th>

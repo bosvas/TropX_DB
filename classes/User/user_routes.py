@@ -20,9 +20,9 @@ def user_registration():
 
 @user_bp.route('/tropx/user/<id>', methods=['GET', 'POST'])
 def get_user(id):
-    user, weights = user_db_implementation.get_user(id)
+    user, weights, mi = user_db_implementation.get_user(id)
     plot_img = weight_histogram_chart(weights=weights, username=user.name)
-    return render_template("tropx/user/show.html", user=user, plot_img=plot_img)
+    return render_template("tropx/user/show.html", user=user, mi=mi, plot_img=plot_img)
 
 
 @user_bp.route('/tropx/user/update/<id>', methods=['POST', 'GET'])
@@ -31,11 +31,12 @@ def update_user(id):
         return user_db_implementation.update_user_post(id)
     return render_template('tropx/user/update.html')
 
+
 @user_bp.route('/tropx/user/update/weight/<id>', methods=['POST', 'GET'])
 def update_user_weight(id):
     if request.method == 'POST':
         return user_db_implementation.update_user_weight_post(id)
-    return render_template('tropx/user/update_injurie.html')
+    return render_template('tropx/user/update_weight.html')
 
 
 @user_bp.route('/tropx/user/delete/<id>', methods=['POST', 'GET'])

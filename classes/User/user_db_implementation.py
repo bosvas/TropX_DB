@@ -6,7 +6,7 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, 
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 # from classes.UserProfile.user_profile_db_implementation import Base
-from classes.classes import User, Weight
+from classes.classes import User, Weight, MedicalInformation
 
 
 load_dotenv()
@@ -47,8 +47,9 @@ def registration_post():
 def get_user(id):
     user = session.query(User).filter_by(id=id).first()
     weights = session.query(Weight).filter_by(user_id=id)
+    mi = session.query(MedicalInformation).filter_by(user_id=id).first()
 
-    return (user, weights)
+    return (user, weights, mi)
 
 
 def update_user_post(id):
