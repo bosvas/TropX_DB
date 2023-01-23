@@ -12,24 +12,32 @@
 <h3>User phone: {{user.phone}}</h3>
 <h3>User email: {{user.email}}</h3>
 <h3>User gender: {{user.gender}}</h3>
-<h3>User birthdate: {{user.birthdate}}</h3>
+<h3>User birthdate: {{user.birthdate.strftime('%Y-%m-%d')}}</h3>
 <h3>User height: {{user.height}}</h3>
 <h3>User weight: {{user.weight}}</h3>
 <h3>User sport: {{user.sport}}</h3>
 <h3>User weight chart : </h3>
 <img src="data:image/png;base64,{{ plot_img }}">
 <br>
-<h3>User's medical information chart : </h3>
-<a href="/tropx/user/medic/new/{{user.id}}">Add medical information</a>
-<a href="/tropx/user/update/injurie/{{user.id}}">Add injurie information</a>
+    <a href="/tropx/user/medic/new/{{user.id}}">
+        <button class="custom-btn btn-2">Add medical information</button>
+    </a>
+    <a href="/tropx/user/update/injurie/{{user.id}}">
+        <button class="custom-btn btn-2">Add injurie information</button>
+    </a>
 <h3>User chronic illness: {{mi.chronic_illness}}</h3>
-<h3>User birthdate: {{mi.orthopedic_status}}</h3>
-<h3>User height: {{mi.current_medication}}</h3>
-<h3>User weight: {{mi.balance_sway_standing}}</h3>
-<h3>User sport: {{mi.personal_calibration}}</h3>
-{% for injurie in mi.injuries %}
-<h3>Injurie was : {{injurie.injurie_date}}, in {{injurie.injurie_bodypart}}. Days to recover : {{injurie.days_to_recover}}</h3>
-{% endfor %}
+<h3>User orthopedic status: {{mi.orthopedic_status}}</h3>
+<h3>User current medication: {{mi.current_medication}}</h3>
+<h3>User balance sway standing: {{mi.balance_sway_standing}}</h3>
+<h3>User personal calibration: {{mi.personal_calibration}}</h3>
+{% if mi.injuries %}
+    {% for injurie in mi.injuries %}
+    <h3>Injurie was : {{injurie.injurie_date.strftime('%Y-%m-%d')}}, in {{injurie.injurie_bodypart}}. It takes {{injurie.days_to_recover}} days to recover</h3>
+    {% endfor %}
+    <img src="data:image/png;base64,{{ injury_img }}">
+    {% else %}
+    <h3>You have no injuries!</h3>
+{% endif %}
 {% if user.exercise_executions %}
 <table class="iksweb">
 <!--    {{user.exercise_executions}}-->
@@ -53,7 +61,7 @@
         <td>{{execution.execution_id}}</td>
         <td>{{execution.user.name}}</td>
         <td>{{execution.exercise.name}}</td>
-        <td>{{execution.execution_date}}</td>
+        <td>{{execution.execution_date.strftime('%Y-%m-%d')}}</td>
         <td>{{execution.number_of_repetitions}}</td>
         <td>{{execution.number_of_sets}}</td>
         <td>{{execution.seconds_long}}</td>
@@ -68,7 +76,7 @@
     </tbody>
 </table>
 {% else %}
-<p>Exercise Execution list is empty!</p>
+<h3>Exercise Execution list is empty!</h3>
 {% endif %}
 
 

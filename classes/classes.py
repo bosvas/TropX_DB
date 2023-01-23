@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, ForeignKey, Date
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -68,7 +68,7 @@ class Injurie(Base):
     __tablename__ = 'injuries'
     injurie_id = Column(Integer, primary_key=True)
     medical_information_id = Column(Integer, ForeignKey('medical_information.id'))
-    injurie_date = Column(DateTime)
+    injurie_date = Column(Date)
     injurie_bodypart = Column(String)
     days_to_recover = Column(Integer)
     medical_information = relationship("MedicalInformation", back_populates="injuries")

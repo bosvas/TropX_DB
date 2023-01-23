@@ -3,10 +3,35 @@
 {% block title%}statistic{% endblock %}
 
 {% block body %}
+
 <h1>Population statistic: </h1>
 <h2>Average height: {{height}}</h2>
 <h2>Average weight: {{weight}}</h2>
 <h2>Total types of exercises in base: {{total_exercises}}</h2>
+{% if exercises_list %}
+<table class="iksweb">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Total done</th>
+        <th>Average Correctness rate</th>
+        <th>Average number of repetitions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for exersice in exercises_list %}
+    <tr>
+        <td>{{exersice[0]}}</td>
+        <td>{{exersice[1]}}</td>
+        <td>{{exersice[2]}}</td>
+        <td>{{exersice[3]}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No executions yet!</p>
+{% endif %}
 <h3>Other statistic in work...</h3>
 
 
