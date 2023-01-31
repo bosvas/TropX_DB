@@ -6,7 +6,7 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, 
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 # from classes.UserProfile.user_profile_db_implementation import Base
-from classes.classes import User, Weight, MedicalInformation, Injurie
+from classes.classes import User, Weight, MedicalInformation, Injury
 
 
 load_dotenv()
@@ -81,18 +81,19 @@ def update_medical_information_post(id):
     return redirect(f"/tropx/user/{id}")
 
 
-def update_medical_information_injurie_post(id):
-    injurie_date = request.form['injurie_date']
-    injurie_bodypart = request.form['injurie_bodypart']
+def update_medical_information_injury_post(id):
+    injury_date = request.form['injury_date']
+    injury_bodypart = request.form['injury_bodypart']
     days_to_recover = request.form['days_to_recover']
 
     user_to_update = session.query(User).filter_by(id=id).first()
-    medical_information_to_update = session.query(MedicalInformation).filter_by(user_id=user_to_update.id).first()
+    user_id = user_to_update.id
+    medical_information_to_update = session.query(MedicalInformation).filter_by(user_id=user_id).first()
+    mi_id = medical_information_to_update.mi_id
+    new_injury = Injury(medical_information_id=mi_id, injury_date=injury_date, injury_bodypart=injury_bodypart, days_to_recover=days_to_recover)
+    # new_injury.medical_information_id = mi.id
 
-    new_injurie = Injurie(medical_information_id=medical_information_to_update.id,
-                          injurie_date=injurie_date, injurie_bodypart=injurie_bodypart,
-                          days_to_recover=days_to_recover)
-    session.add(new_injurie)
+    session.add(new_injury)
 
     session.commit()
 

@@ -6,7 +6,8 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, 
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 # from classes.UserProfile.user_profile_db_implementation import Base
-from classes.classes import User, Weight, MedicalInformation
+from classes.classes import User, Weight, MedicalInformation, ExerciseExecution, ExerciseSpecification
+from collections import defaultdict
 
 
 load_dotenv()
@@ -48,8 +49,12 @@ def get_user(id):
     user = session.query(User).filter_by(id=id).first()
     weights = session.query(Weight).filter_by(user_id=id)
     mi = session.query(MedicalInformation).filter_by(user_id=id).first()
+    executions = session.query(ExerciseExecution).filter_by(user_id=user.id)
+    execution_correctness = defaultdict(list)
+    for execution in executions:
+        execution_correctness[execution.exercise.name].append((execution.execution_date, execution.correct_rate))
 
-    return (user, weights, mi)
+    return (user, weights, mi, execution_correctness)
 
 
 def update_user_post(id):

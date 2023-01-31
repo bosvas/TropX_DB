@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from classes.ExerciseExecution import exercise_execution_db_implementation
+from classes.User import user_db_implementation
 
 exercise_execution_bp = Blueprint('exercise_execution_bp', __name__)
 
@@ -14,7 +15,8 @@ def get_all_exercises():
 def new_exercise():
     if request.method == 'POST':
         return exercise_execution_db_implementation.new_exercise_execution()
-    return render_template("tropx/execution/new.html")
+    users = user_db_implementation.get_all()
+    return render_template("tropx/execution/new.html", users=users)
 
 
 @exercise_execution_bp.route('/tropx/execution/<id>', methods=['GET', 'POST'])

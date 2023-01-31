@@ -9,6 +9,7 @@ from util.weight_plot import weight_histogram_chart
 from classes.User import user_db_implementation
 from classes.ExerciseSpecification import exercise_specification_db_implementation
 from classes.classes import ExerciseExecution
+from classes.classes import User
 
 load_dotenv()
 
@@ -36,10 +37,12 @@ def new_exercise_execution():
     correct_rate = request.form['correct_rate']
     is_correct = request.form['is_correct']
     exercise_id = request.form['exercise_id']
-    user_id = request.form['user_id']
+    user_name = request.form['user_name']
     where_is_mistake = request.form['where_is_mistake']
 
-    new_exercise = ExerciseExecution(user_id=user_id, exercise_id=exercise_id, execution_date=execution_date,
+    user = session.query(User).filter_by(name=user_name).first()
+
+    new_exercise = ExerciseExecution(user_id=user.id, exercise_id=exercise_id, execution_date=execution_date,
                                      number_of_repetitions=number_of_repetitions, number_of_sets=number_of_sets,
                                      weight_with=weight_with, correct_rate=correct_rate, seconds_long=seconds_long,
                                      is_correct=is_correct, where_is_mistake=where_is_mistake)

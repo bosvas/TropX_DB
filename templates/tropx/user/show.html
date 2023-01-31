@@ -13,6 +13,7 @@
 <h3>User email: {{user.email}}</h3>
 <h3>User gender: {{user.gender}}</h3>
 <h3>User birthdate: {{user.birthdate.strftime('%Y-%m-%d')}}</h3>
+<h3>User's age : {{user.age()}}</h3>
 <h3>User height: {{user.height}}</h3>
 <h3>User weight: {{user.weight}}</h3>
 <h3>User sport: {{user.sport}}</h3>
@@ -22,20 +23,23 @@
     <a href="/tropx/user/medic/new/{{user.id}}">
         <button class="custom-btn btn-2">Add medical information</button>
     </a>
-    <a href="/tropx/user/update/injurie/{{user.id}}">
+    <a href="/tropx/user/update/injury/{{user.id}}">
         <button class="custom-btn btn-2">Add injurie information</button>
     </a>
+{% if mi %}
 <h3>User chronic illness: {{mi.chronic_illness}}</h3>
 <h3>User orthopedic status: {{mi.orthopedic_status}}</h3>
 <h3>User current medication: {{mi.current_medication}}</h3>
 <h3>User balance sway standing: {{mi.balance_sway_standing}}</h3>
 <h3>User personal calibration: {{mi.personal_calibration}}</h3>
+{% endif %}
 {% if mi.injuries %}
-    {% for injurie in mi.injuries %}
-    <h3>Injurie was : {{injurie.injurie_date.strftime('%Y-%m-%d')}}, in {{injurie.injurie_bodypart}}. It takes {{injurie.days_to_recover}} days to recover</h3>
+    {% for injury in mi.injuries %}
+    <h3>Injurie was : {{injury.injury_date.strftime('%Y-%m-%d')}}, in {{injury.injury_bodypart}}. It takes {{injury.days_to_recover}} days to recover</h3>
     {% endfor %}
     <img src="data:image/png;base64,{{ injury_img }}">
     {% else %}
+    <img src="{{injury_img}}">
     <h3>You have no injuries!</h3>
 {% endif %}
 {% if user.exercise_executions %}
@@ -75,6 +79,7 @@
     {% endfor %}
     </tbody>
 </table>
+<img src="data:image/png;base64,{{ execution_img }}">
 {% else %}
 <h3>Exercise Execution list is empty!</h3>
 {% endif %}

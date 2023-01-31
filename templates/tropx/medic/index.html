@@ -8,7 +8,7 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>USER ID</th>
+        <th>USER</th>
         <th>Chronic Illness</th>
         <th>Orthopedic Status</th>
         <th>Current Medication</th>
@@ -19,8 +19,8 @@
     <tbody>
     {% for mi in medical_informations %}
     <tr>
-        <td>{{mi.id}}</td>
-        <td>{{mi.user_id}}</td>
+        <td>{{mi.mi_id}}</td>
+        <td>{{mi.user.name}}</td>
         <td>{{mi.chronic_illness}}</td>
         <td>{{mi.orthopedic_status}}</td>
         <td>{{mi.current_medication}}</td>

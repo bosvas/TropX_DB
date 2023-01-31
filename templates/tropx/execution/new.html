@@ -5,8 +5,13 @@
 {% block body%}
 <form method="post">
     <p>
-        <label for="user_id">Enter where is mistake</label>
-        <input type="number" name="user_id" placeholder="user_id">
+        <label for="user_name">Enter where is mistake</label>
+        <input type="text" name="user_name" placeholder="user_name">
+            <select>
+                {% for user in users %}
+                <option value="{{ user.name }}">{{ user.name }}</option>
+                {% endfor %}
+            </select>
     </p>
     <p>
         <label for="execution_date">Enter exercise execution date</label>

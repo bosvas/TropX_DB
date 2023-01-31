@@ -9,7 +9,7 @@
 <h1>User: {{execution.user.name}}</h1>
 <a href="/tropx/user/{{execution.user.id}}">{{execution.user.name}}</a>
 <h1>Exersice: {{execution.exercise.name}}</h1>
-<h2>Execution date: {{execution.execution_date}}</h2>
+<h2>Execution date: {{execution.execution_date.strftime('%Y-%m-%d')}}</h2>
 <h2>Execution number of repetitions: {{execution.number_of_repetitions}}</h2>
 <h2>Execution number of sets: {{execution.number_of_sets}}</h2>
 <h2>Execution long in seconds: {{execution.seconds_long}}</h2>

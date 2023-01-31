@@ -13,8 +13,8 @@ def injury_chart(injuries, username):
     y = []
     # injuries_sorted = sorted(injuries, key=lambda injurie: injuries.injurie_date)
     for injury in injuries:
-        start_date = injury.injurie_date
-        end_date = injury.injurie_date + datetime.timedelta(days=injury.days_to_recover)
+        start_date = injury.injury_date
+        end_date = injury.injury_date + datetime.timedelta(days=injury.days_to_recover)
         for i in range((end_date - start_date).days + 1):
             day = start_date + datetime.timedelta(days=i)
             x.append(day)

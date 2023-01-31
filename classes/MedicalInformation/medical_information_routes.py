@@ -26,11 +26,11 @@ def update_medical(id):
     return render_template('tropx/medic/update.html')
 
 
-@midical_bp.route('/tropx/user/update/injurie/<id>', methods=['POST', 'GET'])
-def update_medic_injurie(id):
+@midical_bp.route('/tropx/user/update/injury/<id>', methods=['POST', 'GET'])
+def update_medic_injury(id):
     if request.method == 'POST':
-        return medical_information_db_implementation.update_medical_information_injurie_post(id)
-    return render_template('tropx/medic/update_injurie.html')
+        return medical_information_db_implementation.update_medical_information_injury_post(id)
+    return render_template('tropx/medic/update_injury.html')
 
 
 # @midical_bp.route('/tropx/medic/<id>', methods=['GET', 'POST'])

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect
 from classes.User import user_db_implementation
 from util.weight_plot import weight_histogram_chart
 from util.injuries_plot import injury_chart
+from util.execution_plot import execution_chart
 
 user_bp = Blueprint('user_bp', __name__)
 
@@ -21,10 +22,14 @@ def user_registration():
 
 @user_bp.route('/tropx/user/<id>', methods=['GET', 'POST'])
 def get_user(id):
-    user, weights, mi = user_db_implementation.get_user(id)
+    user, weights, mi, execution_correctness = user_db_implementation.get_user(id)
     plot_img = weight_histogram_chart(weights=weights, username=user.name)
-    injury_img = injury_chart(injuries=mi.injuries, username=user.name)
-    return render_template("tropx/user/show.html", user=user, mi=mi, plot_img=plot_img, injury_img=injury_img)
+    execution_img = execution_chart(execution_correctness)
+    if mi:
+        injury_img = injury_chart(injuries=mi.injuries, username=user.name)
+    else:
+        injury_img = "http://vision4construction.com/uploads/images/safety%20sign.jpg"
+    return render_template("tropx/user/show.html", user=user, mi=mi, plot_img=plot_img, injury_img=injury_img, execution_img=execution_img)
 
 
 @user_bp.route('/tropx/user/update/<id>', methods=['POST', 'GET'])
