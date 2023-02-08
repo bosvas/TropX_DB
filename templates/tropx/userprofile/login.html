@@ -1,0 +1,26 @@
+<!--{% extends 'base.html' %}-->
+
+<!--{% block title%} New {% endblock %}-->
+
+<!--{% block body%}-->
+<form method="post">
+    <p>
+        <label for="username">Enter user name</label>
+        <input type="text" name="username" placeholder="username">
+    </p>
+    <p>
+        <label for="password">Enter your password</label>
+        <input type="text" name="password" placeholder="password">
+    </p>
+    <p>
+        <button class="custom-btn btn-2" type="submit">Submit</button>
+    </p>
+<!--</form>-->
+
+<!--{% endblock %}-->
+
+<form action="{{ url_for('login') }}" method="post">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <input type="submit" value="Login">
+</form>

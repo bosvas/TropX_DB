@@ -1,48 +1,37 @@
 from flask import Flask, render_template, redirect, request
 import os
+import json
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from classes.classes import UserProfile
+from bcrypt import hashpw, gensalt, checkpw
 
 load_dotenv()
 
 db_url = os.getenv("DATABASE_URL")
 engine = create_engine(db_url)
 
-# Base = declarative_base()
-#
-# class UserProfile(Base):
-#     __tablename__ = 'user_profiles'
-#     id = Column(Integer, primary_key=True)
-#     user_name = Column(String)
-#     user_password = Column(String)
-#     user_payment_plan = Column(String)
-#     user_card_details = Column(String)
-#     # userProfileId: user_profile = field()
-#
-# # Create the tables in the database
-# Base.metadata.create_all(bind=engine)
-
-# Create a session to interact with the database
 Session = sessionmaker(bind=engine)
 session = Session()
 
 
-
 def get_all():
-    user_profile_list = session.query(UserProfile).all()
-    return render_template('tropx/userprofile/index.html', users=user_profile_list)
+    users = session.query(UserProfile).all()
+    return users
 
 
 def registration_post():
     user_name = request.form['user_name']
-    user_password = request.form['user_password']
     payment_plan = request.form['payment_plan']
     card_details = request.form['card_details']
-    # userProfileId: user_profile = field()
-    new_user = UserProfile(user_name=user_name, user_password=user_password, user_payment_plan=payment_plan, user_card_details=card_details)
+
+    user_password = request.form['user_password']
+    hashed_password = hashpw(user_password.encode('utf-8'), gensalt())
+    print(hashed_password)
+
+    new_user = UserProfile(user_name=user_name, user_password=hashed_password, user_payment_plan=payment_plan, user_card_details=card_details)
 
     session.add(new_user)
     session.commit()
@@ -56,6 +45,13 @@ def get_user_profile(id):
     return render_template("tropx/userprofile/show.html", user=user_profile)
 
 
+def login(user_name):
+    user_profile = session.query(UserProfile).filter_by(user_name=user_name).first()
+
+    return user_profile
+
+
+
 def update_user_profile_post(id):
     user_name = request.form['user_name']
     user_password = request.form['user_password']
@@ -63,6 +59,8 @@ def update_user_profile_post(id):
     card_details = request.form['card_details']
 
     user_to_update = session.query(UserProfile).filter_by(id=id).first()
+    hashed_password = hashpw(user_to_update.user_password.encode('utf-8'), gensalt())
+    print(verify_password(user_password, hashed_password))
     user_to_update.user_name = user_name
     user_to_update.user_password = user_password
     user_to_update.user_payment_plan = payment_plan
@@ -79,3 +77,23 @@ def delete_user_profile(id):
     session.commit()
 
     return redirect("/tropx/userprofile/show")
+
+
+def put_json_to_db(data):
+
+    user_password = data["user_password"]
+    hashed_password = hashpw(user_password.encode('utf-8'), gensalt())
+
+    new_user = UserProfile(
+        user_name=data["user_name"],
+        user_password=hashed_password,
+        user_payment_plan=data["user_payment_plan"],
+        user_card_details=data["user_card_details"]
+    )
+
+    session.add(new_user)
+    session.commit()
+
+
+def verify_password(password, hashed_password):
+    return checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))

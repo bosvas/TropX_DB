@@ -26,6 +26,15 @@ class UserProfile(Base):
     user_payment_plan = Column(String)
     user_card_details = Column(String)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_name": self.user_name,
+            "user_password": self.user_password,
+            "user_payment_plan": self.user_payment_plan,
+            "user_card_details": self.user_card_details,
+        }
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -48,6 +57,23 @@ class User(Base):
 
     exercise_executions = relationship("ExerciseExecution", back_populates="user")
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "phone": self.phone,
+            "email": self.email,
+            "gender": self.gender,
+            "birthdate": self.birthdate,
+            "height": self.height,
+            "weight": self.weight,
+            "sport": self.sport,
+            "user_profile_id": self.user_profile_id,
+            "medical_information": [med_info.to_dict() for med_info in self.medical_information],
+            "weights": [weight.to_dict() for weight in self.weights],
+            "exercise_executions": [ex_exec.to_dict() for ex_exec in self.exercise_executions],
+        }
+
     def age(self):
         today = datetime.now()
         age = today.year - self.birthdate.year
@@ -66,6 +92,14 @@ class Weight(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
     user = relationship("User", back_populates="weights")
 
+    def to_dict(self):
+        return {
+            "weight_id": self.weight_id,
+            "weight": self.weight,
+            "weight_date": self.weight_date,
+            "user_id": self.user_id
+        }
+
 
 class MedicalInformation(Base):
     __tablename__ = 'medical_information'
@@ -82,6 +116,18 @@ class MedicalInformation(Base):
 
     injuries = relationship("Injury", back_populates="medical_information")
 
+    def to_dict(self):
+        return {
+            "mi_id": self.mi_id,
+            "chronic_illness": self.chronic_illness,
+            "orthopedic_status": self.orthopedic_status,
+            "current_medication": self.current_medication,
+            "balance_sway_standing": self.balance_sway_standing,
+            "personal_calibration": self.personal_calibration,
+            "user_id": self.user_id,
+            "medical_information": [med_info.to_dict() for med_info in self.medical_information],
+            "injuries": [injury.to_dict() for injury in self.injuries]
+        }
 
 class Injury(Base):
     __tablename__ = 'injuries'
@@ -94,10 +140,14 @@ class Injury(Base):
     medical_information_id = Column(UUID(as_uuid=True), ForeignKey('medical_information.mi_id'))
     medical_information = relationship("MedicalInformation", back_populates="injuries")
 
-    # recover_date = injurie_date + timedelta(days=days_to_recover)
-    # is_injured = False
-    # if recover_date < datetime.now():
-    #     is_injured = True
+    def to_dict(self):
+        return {
+            "injury_id": self.injury_id,
+            "injury_date": self.injury_date,
+            "injury_bodypart": self.injury_bodypart,
+            "days_to_recover": self.days_to_recover,
+            "medical_information_id": self.medical_information_id
+        }
 
 
 class ExerciseSpecification(Base):
@@ -110,6 +160,17 @@ class ExerciseSpecification(Base):
     description = Column(String)
 
     exercise_executions = relationship("ExerciseExecution", back_populates="exercise")
+
+    def to_dict(self):
+        return {
+            "exercise_id": self.injury_id,
+            "name": self.name,
+            "goal": self.goal,
+            "common_mistakes": self.common_mistakes,
+            "description": self.description,
+            "exercise_executions": [execution.to_dict() for execution in self.exercise_executions]
+
+        }
 
 
 class ExerciseExecution(Base):
@@ -130,6 +191,21 @@ class ExerciseExecution(Base):
 
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
     user = relationship("User", back_populates="exercise_executions")
+
+    def to_dict(self):
+        return {
+            "execution_id": self.execution_id,
+            "execution_date": self.execution_date,
+            "number_of_repetitions": self.number_of_repetitions,
+            "number_of_sets": self.number_of_sets,
+            "seconds_long": self.seconds_long,
+            "weight_with": self.weight_with,
+            "correct_rate": self.correct_rate,
+            "is_correct": self.is_correct,
+            "where_is_mistake": self.where_is_mistake,
+            "exercise": self.exercise.to_dict() if self.exercise else None,
+            "user": self.user.to_dict() if self.user else None,
+        }
 
 
 # Create the tables in the database

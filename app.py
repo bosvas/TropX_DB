@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, render_template, redirect
 from dotenv import load_dotenv
 from classes.UserProfile import user_profiles_routes
 from classes.PopulationStatistics import population_statistics_routes
@@ -20,7 +20,7 @@ app.register_blueprint(medical_information_routes.midical_bp)
 
 @app.route('/')
 def index():
-    return redirect('/tropx/userprofile/new')
+    return redirect("tropx/login")
 
 
 if __name__ == '__main__':
