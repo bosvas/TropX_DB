@@ -105,3 +105,18 @@ def delete_user(id):
     return redirect("/tropx/user/show")
 
 
+def put_json_to_db(data):
+
+    name = data['name']
+    phone = data['phone']
+    email = data['email']
+    gender = data['gender']
+    birthdate = data['birthdate']
+    height = data['height']
+    weight = data['weight']
+    sport = data['sport']
+    # userProfileId: user_profile = field()
+    new_user = User(name=name, phone=phone, email=email, gender=gender, birthdate=birthdate,
+                    height=height, weight=weight, sport=sport)
+    session.add(new_user)
+    session.commit()

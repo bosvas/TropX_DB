@@ -70,3 +70,15 @@ def delete_exercise(id):
     session.commit()
 
     return redirect("/tropx/exercise/show")
+
+
+def put_json_to_db(data):
+    name = data['name']
+    description = data['description']
+    goal = data['goal']
+    common_mistakes = data['common_mistakes']
+
+    new_exercise = ExerciseSpecification(name=name, description=description, goal=goal, common_mistakes=common_mistakes)
+
+    session.add(new_exercise)
+    session.commit()

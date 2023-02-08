@@ -94,3 +94,28 @@ def delete_exercise_execution(id):
 
     return redirect("/tropx/exercise/show")
 
+
+def put_json_to_db(data):
+
+    execution_date = data['execution_date']
+    number_of_repetitions = data['number_of_repetitions']
+    number_of_sets = data['number_of_sets']
+    seconds_long = data['seconds_long']
+    weight_with = data['weight_with']
+    correct_rate = data['correct_rate']
+    is_correct = data['is_correct']
+    exercise_id = data['exercise_id']
+    user_id = data['user_id']
+    where_is_mistake = data['where_is_mistake']
+
+    new_exercise = ExerciseExecution(user_id=user_id, exercise_id=exercise_id, execution_date=execution_date,
+                                     number_of_repetitions=number_of_repetitions, number_of_sets=number_of_sets,
+                                     weight_with=weight_with, correct_rate=correct_rate, seconds_long=seconds_long,
+                                     is_correct=is_correct, where_is_mistake=where_is_mistake)
+
+    session.add(new_exercise)
+    session.commit()
+
+
+
+# TODO механизм подставления айди упражнения кажется надо переделать, и вообще возможно переделать чтобы там было имя а не айди??

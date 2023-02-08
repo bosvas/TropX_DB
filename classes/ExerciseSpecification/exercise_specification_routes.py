@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, jsonify
 from classes.ExerciseSpecification import exercise_specification_db_implementation
 
 exercise_specification_bp = Blueprint('exercise_specification_bp', __name__)
@@ -34,3 +34,16 @@ def update_exercise(id):
 def delete_exercise(id):
     exercise_specification_db_implementation.delete_exercise(id)
     return redirect("/tropx/exercise/show")
+
+
+@exercise_specification_bp.route('/tropx/exercise/download')
+def download():
+    data = exercise_specification_db_implementation.get_all()
+    return jsonify([specification.to_dict() for specification in data])
+
+
+@exercise_specification_bp.route('/tropx/exercise/json', methods=["POST"])
+def upload():
+    json_data = request.get_json()
+    exercise_specification_db_implementation.put_json_to_db(json_data)
+    return "exercise_specification created", 201

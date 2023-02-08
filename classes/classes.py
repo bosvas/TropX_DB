@@ -1,4 +1,3 @@
-from flask import Flask, render_template, redirect, request
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
@@ -21,7 +20,7 @@ class UserProfile(Base):
     __tablename__ = 'user_profiles'
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
 
-    user_name = Column(String)
+    user_name = Column(String, nullable=False, default="123")
     user_password = Column(String)
     user_payment_plan = Column(String)
     user_card_details = Column(String)
@@ -69,7 +68,6 @@ class User(Base):
             "weight": self.weight,
             "sport": self.sport,
             "user_profile_id": self.user_profile_id,
-            "medical_information": [med_info.to_dict() for med_info in self.medical_information],
             "weights": [weight.to_dict() for weight in self.weights],
             "exercise_executions": [ex_exec.to_dict() for ex_exec in self.exercise_executions],
         }
@@ -163,13 +161,12 @@ class ExerciseSpecification(Base):
 
     def to_dict(self):
         return {
-            "exercise_id": self.injury_id,
+            "exercise_id": self.exercise_id,
             "name": self.name,
             "goal": self.goal,
             "common_mistakes": self.common_mistakes,
-            "description": self.description,
-            "exercise_executions": [execution.to_dict() for execution in self.exercise_executions]
-
+            "description": self.description
+            # "exercise_executions": [execution.to_dict() for execution in self.exercise_executions]
         }
 
 
@@ -203,8 +200,10 @@ class ExerciseExecution(Base):
             "correct_rate": self.correct_rate,
             "is_correct": self.is_correct,
             "where_is_mistake": self.where_is_mistake,
-            "exercise": self.exercise.to_dict() if self.exercise else None,
-            "user": self.user.to_dict() if self.user else None,
+            "exercise_id": self.exercise_id,
+            "user_id": self.user_id
+            # "exercise": self.exercise.to_dict() if self.exercise else None,
+            # "user": self.user.to_dict() if self.user else None,
         }
 
 

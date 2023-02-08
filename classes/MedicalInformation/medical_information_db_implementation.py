@@ -31,20 +31,11 @@ def add_user_medical_information(id):
     balance_sway_standing = request.form['balance_sway_standing']
     personal_calibration = request.form['personal_calibration']
 
-    # injurie_date = request.form['injurie_date']
-    # injurie_bodypart = request.form['injurie_bodypart']
-    # days_to_recover = request.form['days_to_recover']
-
     new_medical_information = MedicalInformation\
         (user_id=id, chronic_illness=chronic_illness, orthopedic_status=orthopedic_status,
          current_medication=current_medication, balance_sway_standing=balance_sway_standing,
          personal_calibration=personal_calibration)
     session.add(new_medical_information)
-
-    # new_injurie = Injurie(medical_information_id=new_medical_information.id,
-    #                       injurie_date=injurie_date, injurie_bodypart=injurie_bodypart,
-    #                       days_to_recover=days_to_recover)
-    # session.add(new_injurie)
 
     session.commit()
 
@@ -99,18 +90,22 @@ def update_medical_information_injury_post(id):
 
     return redirect(f"/tropx/user/{user_to_update.id}")
 
-# def get_user(id):
-#     user = session.query(User).filter_by(id=id).first()
-#     weights = session.query(Weight).filter_by(user_id=id)
+
+# def put_json_to_db(data):
+#     chronic_illness = data['chronic_illness']
+#     orthopedic_status = data['orthopedic_status']
+#     current_medication = data['current_medication']
+#     balance_sway_standing = data['balance_sway_standing']
+#     personal_calibration = data['personal_calibration']
 #
-#     return (user, weights)
-
-
-# def delete_user(id):
-#     user_to_delete = session.query(User).filter_by(id=id).first()
-#     session.delete(user_to_delete)
+#     new_medical_information = MedicalInformation\
+#         (user_id=id, chronic_illness=chronic_illness, orthopedic_status=orthopedic_status,
+#          current_medication=current_medication, balance_sway_standing=balance_sway_standing,
+#          personal_calibration=personal_calibration)
+#     session.add(new_medical_information)
+#
 #     session.commit()
 #
-#     return redirect("/tropx/user/show")
+#     return redirect(f"/tropx/user/{id}")
 
 

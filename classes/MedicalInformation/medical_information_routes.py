@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, jsonify
 from classes.User import user_db_implementation
 from util.weight_plot import weight_histogram_chart
 from classes.MedicalInformation import medical_information_db_implementation
@@ -32,15 +32,14 @@ def update_medic_injury(id):
         return medical_information_db_implementation.update_medical_information_injury_post(id)
     return render_template('tropx/medic/update_injury.html')
 
-
-# @midical_bp.route('/tropx/medic/<id>', methods=['GET', 'POST'])
-# def get_user(id):
-#     user, weights = user_db_implementation.get_user(id)
-#     plot_img = weight_histogram_chart(weights=weights, username=user.name)
-#     return render_template("tropx/medic/show.html", user=user, plot_img=plot_img)
+# @midical_bp.route('/tropx/medical/download')
+# def download():
+#     data = medical_information_db_implementation.get_all()
+#     return jsonify([user_profile.to_dict() for user_profile in data])
 #
 #
-# @midical_bp.route('/tropx/medic/delete/<id>', methods=['POST', 'GET'])
-# def delete_user(id):
-#     user_db_implementation.delete_user(id)
-#     return redirect("/tropx/medic/show")
+# @midical_bp.route('/tropx/medical/json', methods=["POST"])
+# def upload():
+#     json_data = request.get_json()
+#     medical_information_db_implementation.put_json_to_db(json_data)
+#     return "User_profile created", 201
