@@ -11,7 +11,7 @@ def execution_chart(execution_correctness):
     for name, executions in execution_correctness.items():
         executions.sort(key=lambda x: x[0])  # sort by execution_date
         dates, correct_rates = zip(*executions)
-        plt.plot_date(dates, correct_rates, label=name)
+        plt.plot_date(dates, correct_rates, label=name, linestyle='-')
 
     # plt.plot_date(x, y, label=username, linestyle='solid')
     plt.gcf().autofmt_xdate()
