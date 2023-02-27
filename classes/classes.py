@@ -189,6 +189,8 @@ class ExerciseExecution(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
     user = relationship("User", back_populates="exercise_executions")
 
+    score_to_correct = 80
+
     def to_dict(self):
         return {
             "execution_id": self.execution_id,

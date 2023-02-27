@@ -8,8 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from util.weight_plot import weight_histogram_chart
 from classes.User import user_db_implementation
 from classes.ExerciseSpecification import exercise_specification_db_implementation
-from classes.classes import ExerciseExecution
-from classes.classes import User
+from classes.classes import ExerciseExecution, User, ExerciseSpecification
 
 load_dotenv()
 
@@ -97,16 +96,37 @@ def delete_exercise_execution(id):
 
 def put_json_to_db(data):
 
-    execution_date = data['execution_date']
-    number_of_repetitions = data['number_of_repetitions']
-    number_of_sets = data['number_of_sets']
-    seconds_long = data['seconds_long']
-    weight_with = data['weight_with']
-    correct_rate = data['correct_rate']
-    is_correct = data['is_correct']
-    exercise_id = data['exercise_id']
-    user_id = data['user_id']
-    where_is_mistake = data['where_is_mistake']
+    if 'number_of_repetitions' not in data:
+        raise ValueError('Missing required field: number_of_repetitions')
+    number_of_repetitions = data.get('number_of_repetitions', 20)
+
+    # if 'seconds_long' not in data:
+    #     raise ValueError('Missing required field: seconds_long')
+    seconds_long = data.get('seconds_long', 999)
+
+    if 'correct_rate' not in data:
+        raise ValueError('Missing required field: correct_rate')
+    correct_rate = data.get('correct_rate')
+
+    execution_date = data.get('execution_date', datetime.datetime.now())
+    number_of_sets = data.get('number_of_sets', 1)
+    weight_with = data.get('weight_with', 0)
+
+    if correct_rate > ExerciseExecution.score_to_correct:
+        is_correct = "True"
+    else:
+        is_correct = "False"
+
+    # data.get('is_correct', "False")
+    # TODO сделать буленовское значение из столбца которое определяется в зависимости от величины
+
+    exercise_id = data.get('exercise_id', session.query(ExerciseSpecification).all()[0].exercise_id)
+    user_id = data.get('user_id', session.query(User).all()[0].id)
+    where_is_mistake = data.get('where_is_mistake', "Everywhere")
+
+
+    # TODO think of deafult value, mandatory(?) value. For all this fields (test with IF - GENERATED ERROR!)
+
 
     new_exercise = ExerciseExecution(user_id=user_id, exercise_id=exercise_id, execution_date=execution_date,
                                      number_of_repetitions=number_of_repetitions, number_of_sets=number_of_sets,
@@ -117,5 +137,4 @@ def put_json_to_db(data):
     session.commit()
 
 
-
-# TODO механизм подставления айди упражнения кажется надо переделать, и вообще возможно переделать чтобы там было имя а не айди??
+    # TODO механизм подставления айди упражнения кажется надо переделать, и вообще возможно переделать чтобы там было имя а не айди??
