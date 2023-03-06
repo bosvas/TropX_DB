@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from dotenv import load_dotenv
 from classes.UserProfile import user_profiles_routes
 from classes.PopulationStatistics import population_statistics_routes
@@ -6,6 +7,7 @@ from classes.User import user_routes
 from classes.ExerciseSpecification import exercise_specification_routes
 from classes.ExerciseExecution import exercise_execution_routes
 from classes.MedicalInformation import medical_information_routes
+from classes.UserProfile import login_implementation
 
 load_dotenv()
 
@@ -16,6 +18,7 @@ app.register_blueprint(user_routes.user_bp)
 app.register_blueprint(exercise_specification_routes.exercise_specification_bp)
 app.register_blueprint(exercise_execution_routes.exercise_execution_bp)
 app.register_blueprint(medical_information_routes.midical_bp)
+app.register_blueprint(login_implementation.login_bp)
 
 
 @app.route('/')

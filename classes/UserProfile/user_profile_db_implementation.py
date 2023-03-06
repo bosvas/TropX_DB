@@ -45,13 +45,6 @@ def get_user_profile(id):
     return render_template("tropx/userprofile/show.html", user=user_profile)
 
 
-def login(user_name):
-    user_profile = session.query(UserProfile).filter_by(user_name=user_name).first()
-
-    return user_profile
-
-
-
 def update_user_profile_post(id):
     user_name = request.form['user_name']
     user_password = request.form['user_password']

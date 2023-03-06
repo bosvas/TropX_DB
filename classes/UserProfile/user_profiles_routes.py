@@ -19,22 +19,21 @@ def registration():
     return render_template("tropx/userprofile/new.html")
 
 
-@user_profiles_bp.route("/tropx/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-
-        user_profile = user_profile_db_implementation.login(username)
-        if user_profile and user_profile_db_implementation.verify_password(password, user_profile.user_password):
-            # set the session with the user's ID
-            # session["user_id"] = str(user_profile.id)
-            return user_profile_db_implementation.get_all()
-
-        # otherwise, return an error message
-        return render_template('tropx/userprofile/login.html')
-    return render_template('tropx/userprofile/login.html')
-
+# @user_profiles_bp.route("/tropx/login", methods=["GET", "POST"])
+# def login():
+#     if request.method == "POST":
+#         username = request.form["username"]
+#         password = request.form["password"]
+#
+#         user_profile = user_profile_db_implementation.login(username)
+#         if user_profile and user_profile_db_implementation.verify_password(password, user_profile.user_password):
+#             # set the session with the user's ID
+#             # session["user_id"] = str(user_profile.id)
+#             return user_profile_db_implementation.get_all()
+#
+#         # otherwise, return an error message
+#         return render_template('tropx/userprofile/login.html')
+#     return render_template('tropx/userprofile/login.html')
 
 
 @user_profiles_bp.route('/tropx/userprofile/<id>', methods=['GET', 'POST'])

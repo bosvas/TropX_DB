@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, Blueprint
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, ForeignKey
