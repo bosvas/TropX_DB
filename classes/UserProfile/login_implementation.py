@@ -1,5 +1,6 @@
-from flask import Flask, render_template, redirect, request, Blueprint
-from Flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+import login as login
+from flask import Flask, render_template, redirect, request, Blueprint, flash
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float

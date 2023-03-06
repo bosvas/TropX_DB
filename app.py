@@ -8,6 +8,7 @@ from classes.ExerciseSpecification import exercise_specification_routes
 from classes.ExerciseExecution import exercise_execution_routes
 from classes.MedicalInformation import medical_information_routes
 from classes.UserProfile import login_implementation
+from flask_bootstrap import Bootstrap
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ app.register_blueprint(exercise_execution_routes.exercise_execution_bp)
 app.register_blueprint(medical_information_routes.midical_bp)
 app.register_blueprint(login_implementation.login_bp)
 
+bootstrap = Bootstrap(app)
 
 @app.route('/')
 def index():
