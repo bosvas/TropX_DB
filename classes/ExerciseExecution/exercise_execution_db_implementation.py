@@ -118,7 +118,7 @@ def put_json_to_db(data):
         is_correct = "False"
 
     # data.get('is_correct', "False")
-    # TODO сделать буленовское значение из столбца которое определяется в зависимости от величины
+    # TODO make a boolean is_correct which is counting from the constant variable and current correctness
 
     exercise_id = data.get('exercise_id', session.query(ExerciseSpecification).all()[0].exercise_id)
     user_id = data.get('user_id', session.query(User).all()[0].id)

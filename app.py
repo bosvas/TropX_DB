@@ -1,13 +1,14 @@
 from flask import Flask, render_template, redirect, Flask, render_template, redirect, request, Blueprint, flash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from dotenv import load_dotenv
-from classes.UserProfile import user_profiles_routes
+# from classes.UserProfile import user_profiles_routes
 from classes.PopulationStatistics import population_statistics_routes
 from classes.User import user_routes
 from classes.ExerciseSpecification import exercise_specification_routes
 from classes.ExerciseExecution import exercise_execution_routes
 from classes.MedicalInformation import medical_information_routes
-from flask_bootstrap import Bootstrap
+from classes.UserProfile import user_profiles_routes
+# from flask_bootstrap import Bootstrap
 from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_bcrypt import Bcrypt
@@ -15,8 +16,8 @@ from flask_bcrypt import Bcrypt
 from classes.classes import UserProfile
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
-from sqlalchemy.orm import sessionmaker, relationship
+# from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
+# from sqlalchemy.orm import sessionmaker, relationship
 
 
 load_dotenv()

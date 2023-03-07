@@ -4,7 +4,10 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, ForeignKey, Date
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.mysql import CHAR
+from sqlalchemy.sql import func, text
+import uuid
+
 from uuid import uuid4
 
 
@@ -18,12 +21,12 @@ Base = declarative_base()
 
 class UserProfile(Base):
     __tablename__ = 'user_profiles'
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
-    user_name = Column(String, nullable=False, default="123")
-    user_password = Column(String)
-    user_payment_plan = Column(String)
-    user_card_details = Column(String)
+    user_name = Column(String(36), nullable=False)
+    user_password = Column(String(36))
+    user_payment_plan = Column(String(36))
+    user_card_details = Column(String(36))
 
     def to_dict(self):
         return {
@@ -37,18 +40,18 @@ class UserProfile(Base):
 
 class User(Base):
     __tablename__ = 'users'
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
-    name = Column(String)
-    phone = Column(String)
-    email = Column(String)
-    gender = Column(String)
+    name = Column(String(36))
+    phone = Column(String(36))
+    email = Column(String(36))
+    gender = Column(String(36))
     birthdate = Column(DateTime)
     height = Column(Float)
     weight = Column(Float)
-    sport = Column(String)
+    sport = Column(String(36))
 
-    user_profile_id = Column(UUID, ForeignKey('user_profiles.id'))
+    user_profile_id = Column(CHAR(36), ForeignKey('user_profiles.id'))
 
     medical_information = relationship("MedicalInformation", back_populates="user")
 
@@ -82,12 +85,12 @@ class User(Base):
 
 class Weight(Base):
     __tablename__='weight'
-    weight_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    weight_id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
     weight = Column(Integer)
     weight_date = Column(DateTime)
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+    user_id = Column(CHAR(36), ForeignKey('users.id'))
     user = relationship("User", back_populates="weights")
 
     def to_dict(self):
@@ -101,15 +104,15 @@ class Weight(Base):
 
 class MedicalInformation(Base):
     __tablename__ = 'medical_information'
-    mi_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    mi_id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
-    chronic_illness = Column(String)
-    orthopedic_status = Column(String)
-    current_medication = Column(String)
+    chronic_illness = Column(String(36))
+    orthopedic_status = Column(String(36))
+    current_medication = Column(String(36))
     balance_sway_standing = Column(Float)
-    personal_calibration = Column(String)
+    personal_calibration = Column(String(36))
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+    user_id = Column(CHAR(36), ForeignKey('users.id'))
     user = relationship("User", back_populates="medical_information")
 
     injuries = relationship("Injury", back_populates="medical_information")
@@ -129,13 +132,13 @@ class MedicalInformation(Base):
 
 class Injury(Base):
     __tablename__ = 'injuries'
-    injury_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    injury_id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
     injury_date = Column(Date)
-    injury_bodypart = Column(String)
+    injury_bodypart = Column(String(36))
     days_to_recover = Column(Integer)
 
-    medical_information_id = Column(UUID(as_uuid=True), ForeignKey('medical_information.mi_id'))
+    medical_information_id = Column(CHAR(36), ForeignKey('medical_information.mi_id'))
     medical_information = relationship("MedicalInformation", back_populates="injuries")
 
     def to_dict(self):
@@ -150,12 +153,12 @@ class Injury(Base):
 
 class ExerciseSpecification(Base):
     __tablename__ = 'exercise_specifications'
-    exercise_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    exercise_id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
-    name = Column(String)
-    goal = Column(String)
-    common_mistakes = Column(String)
-    description = Column(String)
+    name = Column(String(36))
+    goal = Column(String(36))
+    common_mistakes = Column(String(36))
+    description = Column(String(500))
 
     exercise_executions = relationship("ExerciseExecution", back_populates="exercise")
 
@@ -172,7 +175,7 @@ class ExerciseSpecification(Base):
 
 class ExerciseExecution(Base):
     __tablename__ = 'exercise_executions'
-    execution_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    execution_id = Column(CHAR(36), primary_key=True, default=func.uuid())
 
     execution_date = Column(DateTime)
     number_of_repetitions = Column(Integer)
@@ -180,13 +183,13 @@ class ExerciseExecution(Base):
     seconds_long = Column(Integer)
     weight_with = Column(Integer)
     correct_rate = Column(Integer)
-    is_correct = Column(String)
-    where_is_mistake = Column(String)
+    is_correct = Column(String(36))
+    where_is_mistake = Column(String(36))
 
-    exercise_id = Column(UUID(as_uuid=True), ForeignKey('exercise_specifications.exercise_id'))
+    exercise_id = Column(CHAR(36), ForeignKey('exercise_specifications.exercise_id'))
     exercise = relationship("ExerciseSpecification", back_populates="exercise_executions")
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+    user_id = Column(CHAR(36), ForeignKey('users.id'))
     user = relationship("User", back_populates="exercise_executions")
 
     score_to_correct = 80
