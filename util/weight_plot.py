@@ -28,8 +28,3 @@ def weight_histogram_chart(weights, username):
 
     plt.cla()
     return plot_img
-
-
-# if __name__ == '__main__':
-#     weights = ((),(),)
-#     print(weight_histogram_chart())

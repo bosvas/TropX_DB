@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
 from sqlalchemy.orm import sessionmaker, relationship
 
+# hahaha
 
 load_dotenv()
 

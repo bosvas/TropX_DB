@@ -13,7 +13,6 @@ def execution_chart(execution_correctness):
         dates, correct_rates = zip(*executions)
         plt.plot_date(dates, correct_rates, label=name, linestyle='-')
 
-    # plt.plot_date(x, y, label=username, linestyle='solid')
     plt.gcf().autofmt_xdate()
 
     plt.xlabel("Date")
